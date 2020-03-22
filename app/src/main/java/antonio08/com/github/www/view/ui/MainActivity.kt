@@ -1,7 +1,8 @@
-package antonio08.com.github.www
+package antonio08.com.github.www.view.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import antonio08.com.github.www.R
 
 class MainActivity : AppCompatActivity() {
 
