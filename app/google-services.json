@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "46237133167",
+    "firebase_url": "https://fit-builder.firebaseio.com",
+    "project_id": "fit-builder",
+    "storage_bucket": "fit-builder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46237133167:android:6f15b690e7596c8326a09a",
+        "android_client_info": {
+          "package_name": "antonio08.com.github.www"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46237133167-o6n6tqmhv8no9ku42ir00peracokp3r9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "antonio08.com.github.www",
+            "certificate_hash": "62eb7973ab9865fb47970d6f581c2ad8900b91ed"
+          }
+        },
+        {
+          "client_id": "46237133167-rdpcfqqh62eit5frqg6clksq9r9mqvlm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBizpsT9i3cK17PswLS2HHA7P_uom_0Npk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46237133167-rdpcfqqh62eit5frqg6clksq9r9mqvlm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
