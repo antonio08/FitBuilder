@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Bias dimens -->
+    <dimen name="third_bias">0.70</dimen>
+    <dimen name="first_bias">0.25</dimen>
+    <dimen name="center_bias">0.5</dimen>
+
+    <!-- Margin dimens-->
+    <dimen name="margin">16dp</dimen>
 
     <!--Text Sizes-->
     <dimen name="app_name_title">45sp</dimen>
+    <dimen name="titles">30sp</dimen>
 </resources>

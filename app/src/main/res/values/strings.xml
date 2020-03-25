@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Fit Builder</string>
+
+    <!-- Login messages -->
+    <string name="welcome_message">Welcome to Fit Builder</string>
+    <string name="login_message">Please sign in to proceed with your workout</string>
+    <string name="login_massage_failed">Something went wrong with your login, please try again</string>
 </resources>
