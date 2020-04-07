@@ -4,5 +4,9 @@
 
     <!-- The background color, preferably the same as your normal theme -->
     <item android:drawable="@color/colorPrimary"/>
+    <item>
+        <bitmap android:src="@drawable/app_name"
+            android:gravity="center"/>
+    </item>
 
 </layer-list>
