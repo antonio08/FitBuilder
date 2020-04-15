@@ -4,10 +4,6 @@
 
 package antonio08.com.github.www.service.network
 
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-
-object Authentication {
-    val mGoogleSignInOptions: GoogleSignInOptions =
-        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
-
+class Authentication {
+    // TODO Implementation for this part needs further investigation
 }

@@ -15,20 +15,20 @@ import antonio08.com.github.www.R
 import antonio08.com.github.www.contract.ILoginContract
 import antonio08.com.github.www.contract.ILoginContract.RequestCodeConstants.RC_GOOGLE_SIGN_IN
 import antonio08.com.github.www.viewmodel.LoginViewModel
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.SignInButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), ILoginContract {
 
     lateinit var mLoginViewModel: LoginViewModel
-    lateinit var mGoogleSignInClient: GoogleSignInClient
     private val mClickListener = View.OnClickListener { view ->
         when (view.id) {
             R.id.mSignInButton -> proceedWithGoogleLogin()
         }
     }
+    private val mAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,9 +61,16 @@ class LoginActivity : AppCompatActivity(), ILoginContract {
     }
 
     private fun observeLoginResult() {
-        mLoginViewModel.getUser().observe(this, Observer { isLoggedIn ->
-            if(isLoggedIn) {
-                takeUserToDashboard()
+        mLoginViewModel.getUser().observe(this, Observer { credentials ->
+            if(credentials != null) {
+                mAuth.signInWithCredential(credentials).addOnCompleteListener(this) { task ->
+                    if(task.isSuccessful){
+                        takeUserToDashboard()
+                    }
+                    else{
+                        displaySnackBar(getString(R.string.login_massage_failed))
+                    }
+                }
             }
             else{
                 displaySnackBar(getString(R.string.login_massage_failed))

@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Fit Builder</string>
 
+    <!-- Keys -->
+    <string name="client_id" translatable="false">46237133167-cvl1rep0vptdpl1v13bspap304q867qd.apps.googleusercontent.com</string>
+
     <!-- Login messages -->
     <string name="welcome_message">Welcome to Fit Builder</string>
     <string name="login_message">Please sign in to proceed with your workout</string>

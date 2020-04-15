@@ -10,13 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import antonio08.com.github.www.R
 import antonio08.com.github.www.viewmodel.LaunchViewModel
-
+import com.google.firebase.auth.FirebaseAuth
 
 class LaunchActivity : AppCompatActivity() {
-
-    // This is just a test
-    //private lateinit var mGoogleSignInClient: GoogleSignInClient
-
+    private lateinit var mAuth : FirebaseAuth
 
     lateinit var mLaunchViewModel: LaunchViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,21 +22,19 @@ class LaunchActivity : AppCompatActivity() {
         mLaunchViewModel = ViewModelProvider(this).get(LaunchViewModel::class.java)
             //Deprecated of(this).get(LaunchViewModel::class.java)
 
-        //mGoogleSignInClient =
-            //GoogleSignIn.getClient(application.applicationContext, Authentication.mGoogleSignInOptions)
+        mAuth = FirebaseAuth.getInstance()
     }
 
     override fun onStart() {
         super.onStart()
 
-        //This just a test
-        //mGoogleSignInClient.signOut()
+        // This is jus a test to logout
+        //FirebaseAuth.getInstance().signOut()
 
-        val googleSignInAccount = mLaunchViewModel.lastGoogleSignedInAccount()
-
+        val currentUser = mAuth.currentUser
 
         // If there is already an account proceed to the Dashboard; else proceed to the Login Activity
-        if (googleSignInAccount != null) {
+        if (currentUser != null) {
             startActivity(Intent(this, DashboardActivity::class.java))
         } else {
             startActivity(Intent(this, LoginActivity::class.java))
