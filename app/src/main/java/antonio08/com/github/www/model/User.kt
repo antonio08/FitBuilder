@@ -4,7 +4,6 @@
 
 package antonio08.com.github.www.model
 
-import android.provider.ContactsContract
 import androidx.annotation.NonNull
 
 class User(@NonNull email: String) {

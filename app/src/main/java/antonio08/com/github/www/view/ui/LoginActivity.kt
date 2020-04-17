@@ -50,9 +50,6 @@ class LoginActivity : AppCompatActivity(), ILoginContract {
     }
 
     private fun initialize() {
-        // Build a GoogleSignInClient with the options specified by gso.
-        //mGoogleSignInClient = GoogleSignIn.getClient(this, Authentication.mGoogleSignInOptions)
-
         mSignInButton.setSize(SignInButton.SIZE_STANDARD)
     }
 
@@ -62,7 +59,9 @@ class LoginActivity : AppCompatActivity(), ILoginContract {
 
     private fun observeLoginResult() {
         mLoginViewModel.getUser().observe(this, Observer { credentials ->
+            // If we have the credentials then
             if(credentials != null) {
+                // Sign in the user into Firebase
                 mAuth.signInWithCredential(credentials).addOnCompleteListener(this) { task ->
                     if(task.isSuccessful){
                         takeUserToDashboard()
