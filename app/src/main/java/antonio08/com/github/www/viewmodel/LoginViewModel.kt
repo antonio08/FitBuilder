@@ -18,7 +18,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import javax.inject.Inject
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val mApplication: Application = application
@@ -27,14 +30,17 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val googleSignInOptions =
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(idToken)
-            .requestEmail().build()
+            .requestEmail()
+            .requestProfile()
+            .build()
 
     // Build a GoogleSignInClient with the options specified by gso.
     private val mGoogleSignInClient: GoogleSignInClient =
         GoogleSignIn.getClient(application.applicationContext, googleSignInOptions)
-
     private val mUserMutableLiveData = MutableLiveData<AuthCredential>()
 
+    @Inject
+    lateinit var user: FirebaseUser
 
     val mGoogleSignInIntent: Intent = mGoogleSignInClient.signInIntent
 
@@ -57,6 +63,10 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
      */
     fun getUser(): MutableLiveData<AuthCredential> {
         return mUserMutableLiveData;
+    }
+
+    fun saveUserData(authResult: AuthResult) {
+        user = authResult.user!!
     }
 
     private fun handleSignInResult(task: Task<GoogleSignInAccount>?) {

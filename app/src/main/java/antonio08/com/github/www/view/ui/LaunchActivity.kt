@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import antonio08.com.github.www.R
 import antonio08.com.github.www.viewmodel.LaunchViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class LaunchActivity : AppCompatActivity() {
 
@@ -27,13 +28,14 @@ class LaunchActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        // This is jus a test to logout
-        //FirebaseAuth.getInstance().signOut()
+        // This is just a test to logout
+        // FirebaseAuth.getInstance().signOut()
 
         val currentUser = mViewModel.lastFirebaseUserSignedIn
 
         // If there is already an account proceed to the Dashboard; else proceed to the Login Activity
         if (currentUser != null) {
+            mViewModel.saveUserData(currentUser)
             startActivity(Intent(this, DashboardActivity::class.java))
         } else {
             startActivity(Intent(this, LoginActivity::class.java))

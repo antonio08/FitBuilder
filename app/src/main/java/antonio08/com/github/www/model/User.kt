@@ -4,14 +4,15 @@
 
 package antonio08.com.github.www.model
 
-import androidx.annotation.NonNull
+import com.google.firebase.auth.FirebaseUser
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class User(@NonNull email: String) {
+@Singleton
+class User @Inject constructor(user : FirebaseUser) {
 
-    var mUserEmail = email
-        get() = field
-
-    var mIsUserLoggedIn: Boolean = false
-
-
+    val displayName = user.displayName
+    val email = user.email
+    val phoneNumber = user.phoneNumber
+    val profilePictureUrl = user.photoUrl
 }

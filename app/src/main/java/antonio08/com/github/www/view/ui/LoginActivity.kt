@@ -22,7 +22,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), ILoginContract {
 
-    lateinit var mLoginViewModel: LoginViewModel
+    private lateinit var mViewModel: LoginViewModel
+
     private val mClickListener = View.OnClickListener { view ->
         when (view.id) {
             R.id.mSignInButton -> proceedWithGoogleLogin()
@@ -36,7 +37,7 @@ class LoginActivity : AppCompatActivity(), ILoginContract {
 
         initialize()
 
-        mLoginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         mSignInButton.setOnClickListener(mClickListener)
 
@@ -46,7 +47,7 @@ class LoginActivity : AppCompatActivity(), ILoginContract {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        mLoginViewModel.result(requestCode, resultCode, data)
+        mViewModel.result(requestCode, resultCode, data)
     }
 
     private fun initialize() {
@@ -54,24 +55,25 @@ class LoginActivity : AppCompatActivity(), ILoginContract {
     }
 
     private fun proceedWithGoogleLogin() {
-        startActivityForResult(mLoginViewModel.mGoogleSignInIntent, RC_GOOGLE_SIGN_IN)
+        startActivityForResult(mViewModel.mGoogleSignInIntent, RC_GOOGLE_SIGN_IN)
     }
 
     private fun observeLoginResult() {
-        mLoginViewModel.getUser().observe(this, Observer { credentials ->
+        mViewModel.getUser().observe(this, Observer { credentials ->
             // If we have the credentials then
-            if(credentials != null) {
+            if (credentials != null) {
                 // Sign in the user into Firebase
                 mAuth.signInWithCredential(credentials).addOnCompleteListener(this) { task ->
-                    if(task.isSuccessful){
+                    // Save the user data if the authentication was successful and
+                    // the result is not null
+                    if (task.isSuccessful && task.result != null) {
+                        mViewModel.saveUserData(task.result!!)
                         takeUserToDashboard()
-                    }
-                    else{
+                    } else {
                         displaySnackBar(getString(R.string.login_massage_failed))
                     }
                 }
-            }
-            else{
+            } else {
                 displaySnackBar(getString(R.string.login_massage_failed))
             }
         })
