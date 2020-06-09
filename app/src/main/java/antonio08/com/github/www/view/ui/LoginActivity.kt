@@ -15,6 +15,9 @@ import antonio08.com.github.www.R
 import antonio08.com.github.www.contract.ILoginContract
 import antonio08.com.github.www.contract.ILoginContract.RequestCodeConstants.RC_GOOGLE_SIGN_IN
 import antonio08.com.github.www.viewmodel.LoginViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -23,6 +26,9 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity(), ILoginContract {
 
     private lateinit var mViewModel: LoginViewModel
+    private lateinit var mGoogleSignInOptions: GoogleSignInOptions
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mGoogleSignInIntent: Intent
 
     private val mClickListener = View.OnClickListener { view ->
         when (view.id) {
@@ -37,8 +43,6 @@ class LoginActivity : AppCompatActivity(), ILoginContract {
 
         initialize()
 
-        mViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-
         mSignInButton.setOnClickListener(mClickListener)
 
         observeLoginResult()
@@ -51,11 +55,32 @@ class LoginActivity : AppCompatActivity(), ILoginContract {
     }
 
     private fun initialize() {
+        // Initialize Google Sig In Client
+        val idToken = resources.getString(R.string.client_id)
+        mGoogleSignInOptions =
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(idToken)
+                .requestEmail()
+                .requestProfile()
+                .build()
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient =
+            GoogleSignIn.getClient(this, mGoogleSignInOptions)
+
+        // Initialize google Intent
+        mGoogleSignInIntent = mGoogleSignInClient.signInIntent
+
         mSignInButton.setSize(SignInButton.SIZE_STANDARD)
+
+        // Initialize View Model
+        mViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+
+
     }
 
     private fun proceedWithGoogleLogin() {
-        startActivityForResult(mViewModel.mGoogleSignInIntent, RC_GOOGLE_SIGN_IN)
+        startActivityForResult(mGoogleSignInIntent, RC_GOOGLE_SIGN_IN)
     }
 
     private fun observeLoginResult() {

@@ -5,7 +5,7 @@
 
 package antonio08.com.github.www.module
 
-import antonio08.com.github.www.model.User
+import antonio08.com.github.www.data.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import dagger.Module

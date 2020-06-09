@@ -20,7 +20,7 @@ class LaunchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch)
         mViewModel = ViewModelProvider(this).get(LaunchViewModel::class.java)
-            //Deprecated of(this).get(LaunchViewModel::class.java)
+        //Deprecated of(this).get(LaunchViewModel::class.java)
 
 
     }
@@ -29,7 +29,7 @@ class LaunchActivity : AppCompatActivity() {
         super.onStart()
 
         // This is just a test to logout
-        // FirebaseAuth.getInstance().signOut()
+        FirebaseAuth.getInstance().signOut()
 
         val currentUser = mViewModel.lastFirebaseUserSignedIn
 

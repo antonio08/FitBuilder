@@ -15,9 +15,9 @@ class LaunchViewModel : ViewModel() {
     val lastFirebaseUserSignedIn: FirebaseUser? = mAuth.currentUser
 
     @Inject
-    lateinit var user: FirebaseUser
+    lateinit var mUser: FirebaseUser
 
     fun saveUserData(firebaseUser: FirebaseUser) {
-        user = firebaseUser
+        mUser = firebaseUser
     }
 }

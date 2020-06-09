@@ -4,7 +4,7 @@
 
 package antonio08.com.github.www.contract
 
-import antonio08.com.github.www.model.User
+import antonio08.com.github.www.data.User
 import antonio08.com.github.www.module.UserModule
 import dagger.Component
 
