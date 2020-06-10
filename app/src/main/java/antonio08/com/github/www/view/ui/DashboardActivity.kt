@@ -21,6 +21,8 @@ class DashboardActivity : AppCompatActivity() {
 
         helloWorld.text = user.displayName
 
-
+        helloWorld.setOnClickListener { _ ->
+            throw RuntimeException("Test Crash") // Force a crash
+        }
     }
 }

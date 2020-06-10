@@ -15,6 +15,10 @@ interface ILoginContract {
         const val RC_GOOGLE_SIGN_IN = 0
     }
 
+    object ResultCodeConstants {
+        const val RESULT_OK = -1
+    }
+
     fun Activity.displaySnackBar(message : String)
 
 }

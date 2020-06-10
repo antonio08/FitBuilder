@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import antonio08.com.github.www.R
 import antonio08.com.github.www.contract.ILoginContract
 import antonio08.com.github.www.contract.ILoginContract.RequestCodeConstants.RC_GOOGLE_SIGN_IN
+import antonio08.com.github.www.log.Log
 import antonio08.com.github.www.viewmodel.LoginViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -24,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), ILoginContract {
-
+    private val logTag = LoginActivity::class.java.canonicalName
     private lateinit var mViewModel: LoginViewModel
     private lateinit var mGoogleSignInOptions: GoogleSignInOptions
     private lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -80,6 +81,7 @@ class LoginActivity : AppCompatActivity(), ILoginContract {
     }
 
     private fun proceedWithGoogleLogin() {
+        Log.logMessage(logTag, "proceedWithGoogleLogin()", "Starting Google login process")
         startActivityForResult(mGoogleSignInIntent, RC_GOOGLE_SIGN_IN)
     }
 
@@ -95,10 +97,16 @@ class LoginActivity : AppCompatActivity(), ILoginContract {
                         mViewModel.saveUserData(task.result!!)
                         takeUserToDashboard()
                     } else {
+                        Log.logMessage(
+                            logTag,
+                            "observeLoginResult()",
+                            "Firebase login failed ${task.exception.toString()}"
+                        )
                         displaySnackBar(getString(R.string.login_massage_failed))
                     }
                 }
             } else {
+                Log.logMessage(logTag, "observeLoginResult()", "Credentials are empty")
                 displaySnackBar(getString(R.string.login_massage_failed))
             }
         })
